@@ -283,6 +283,288 @@
             display: none;
         }
         
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--light-pink);
+        }
+        
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            background-color: #f8f8f8;
+            margin-right: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(45deg, var(--pink-color), var(--blue-color));
+            color: white;
+        }
+        
+        .nav-tab:hover:not(.active) {
+            background-color: var(--light-pink);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .admin-login {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-dashboard {
+            display: none;
+        }
+        
+        .order-list {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .order-list-header {
+            display: grid;
+            grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
+            background-color: var(--blue-color);
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+        
+        .order-list-item {
+            display: grid;
+            grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        
+        .order-list-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .order-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-details {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .order-details h3 {
+            color: var(--blue-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        .order-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .order-details-section {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .order-products {
+            margin-top: 15px;
+        }
+        
+        .order-product-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        /* Order History */
+        .order-history {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .history-empty {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+        
+        .history-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-item-date {
+            color: #777;
+        }
+        
+        .history-item-products {
+            margin-top: 10px;
+        }
+        
+        .history-item-product {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-pending {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+        
+        .status-processing {
+            background-color: #D1ECF1;
+            color: #0C5460;
+        }
+        
+        .status-completed {
+            background-color: #D4EDDA;
+            color: #155724;
+        }
+        
+        .status-cancelled {
+            background-color: #F8D7DA;
+            color: #721C24;
+        }
+        
+        /* Search */
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            border-radius: 0 8px 8px 0;
+            padding: 12px 20px;
+        }
+        
+        /* Product Lookup */
+        .product-lookup {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .product-results {
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #aaa;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-code {
+            font-weight: bold;
+            color: var(--blue-color);
+        }
+        
+        .product-price {
+            color: var(--pink-color);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .product-stock {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .in-stock {
+            color: #4CAF50;
+        }
+        
+        .low-stock {
+            color: #FF9800;
+        }
+        
+        .out-of-stock {
+            color: #F44336;
+        }
+        
+        .add-to-order-btn {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
         @keyframes float {
             0%, 100% {
                 transform: translateY(0) rotate(0deg);
@@ -338,6 +620,18 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
+            
+            .order-details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-list-header, .order-list-item {
+                grid-template-columns: 0.5fr 1fr 1fr 0.5fr;
+            }
+            
+            .order-list-header div:nth-child(3), .order-list-item div:nth-child(3) {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -349,6 +643,13 @@
             <div class="logo">Baby <span>Land</span></div>
             <h1>نظام الطلبات</h1>
         </header>
+        
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="order-section">طلب جديد</div>
+            <div class="nav-tab" data-tab="order-history">سجل الطلبات</div>
+            <div class="nav-tab" data-tab="product-lookup">بحث عن منتج</div>
+            <div class="nav-tab" data-tab="admin-panel">لوحة الإدارة</div>
+        </div>
         
         <div id="error-message" class="error-message"></div>
         
@@ -407,6 +708,95 @@
             </div>
         </div>
         
+        <div class="order-history" id="order-history">
+            <h2>سجل الطلبات</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="البحث عن طلب...">
+                <button class="search-button">بحث</button>
+            </div>
+            <div id="history-items">
+                <!-- Order history will be displayed here -->
+                <div class="history-empty">لا توجد طلبات سابقة</div>
+            </div>
+        </div>
+        
+        <div class="product-lookup" id="product-lookup">
+            <h2>بحث عن منتج</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" id="product-search" placeholder="أدخل كود المنتج أو اسمه...">
+                <button class="search-button" id="product-search-btn">بحث</button>
+            </div>
+            <div class="product-results" id="product-results">
+                <!-- Product results will be displayed here -->
+            </div>
+        </div>
+        
+        <div class="admin-panel" id="admin-panel">
+            <div class="admin-login" id="admin-login">
+                <h2>تسجيل الدخول للإدارة</h2>
+                <div class="form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="admin-username">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="admin-password">
+                </div>
+                <button id="admin-login-btn">تسجيل الدخول</button>
+            </div>
+            
+            <div class="admin-dashboard" id="admin-dashboard">
+                <h2>لوحة الإدارة</h2>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="البحث عن طلب...">
+                    <button class="search-button">بحث</button>
+                </div>
+                
+                <div class="order-list">
+                    <div class="order-list-header">
+                        <div>رقم الطلب</div>
+                        <div>اسم العميل</div>
+                        <div>التاريخ</div>
+                        <div>الحالة</div>
+                        <div>عرض</div>
+                    </div>
+                    <div id="admin-order-list">
+                        <!-- Order list will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="order-details" id="order-details">
+                    <h3>تفاصيل الطلب #<span id="detail-order-id"></span></h3>
+                    <div class="order-details-grid">
+                        <div class="order-details-section">
+                            <h4>بيانات العميل</h4>
+                            <p><strong>الاسم:</strong> <span id="detail-customer-name"></span></p>
+                            <p><strong>اسم المحل:</strong> <span id="detail-shop-name"></span></p>
+                            <p><strong>العنوان:</strong> <span id="detail-address"></span></p>
+                            <p><strong>رقم التليفون:</strong> <span id="detail-phone"></span></p>
+                            <p><strong>العربون:</strong> <span id="detail-deposit"></span></p>
+                            <p><strong>ملاحظات:</strong> <span id="detail-notes"></span></p>
+                        </div>
+                        <div class="order-details-section">
+                            <h4>تفاصيل الطلب</h4>
+                            <p><strong>تاريخ الطلب:</strong> <span id="detail-date"></span></p>
+                            <p><strong>حالة الطلب:</strong> <span id="detail-status"></span></p>
+                            <div class="order-products" id="detail-products">
+                                <!-- Order products will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button id="update-status-btn">تحديث الحالة</button>
+                        <button id="send-whatsapp-btn" class="whatsapp-button">
+                            <span class="whatsapp-icon">📱</span>
+                            إرسال عبر واتساب
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="success-page" id="success-page">
             <div class="success-icon">✓</div>
             <div class="success-message">شكراً لك! تم إرسال طلبك بنجاح</div>
@@ -414,6 +804,10 @@
             <button id="whatsapp-btn" class="whatsapp-button">
                 <span class="whatsapp-icon">📱</span>
                 فتح الطلب في واتساب
+            </button>
+            <button id="admin-whatsapp-btn" class="whatsapp-button" style="margin-top: 10px; background: linear-gradient(45deg, #128C7E, #075E54);">
+                <span class="whatsapp-icon">📱</span>
+                إرسال نسخة للإدارة
             </button>
         </div>
     </div>
@@ -504,15 +898,518 @@
             }, 10000);
         }
         
+        // Format date
+        function formatDate(date) {
+            const d = new Date(date);
+            return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`;
+        }
+        
+        // Generate order ID
+        function generateOrderId() {
+            return Math.floor(100000 + Math.random() * 900000);
+        }
+        
+        // Save order to local storage
+        function saveOrderToLocalStorage(orderData) {
+            // Get existing orders
+            let orders = JSON.parse(localStorage.getItem('babyLandOrders')) || [];
+            
+            // Add new order with ID, date and status
+            const newOrder = {
+                id: generateOrderId(),
+                date: new Date().toISOString(),
+                status: 'pending',
+                ...orderData
+            };
+            
+            orders.push(newOrder);
+            
+            // Save back to local storage
+            localStorage.setItem('babyLandOrders', JSON.stringify(orders));
+            
+            return newOrder;
+        }
+        
+        // Load orders from local storage
+        function loadOrdersFromLocalStorage() {
+            return JSON.parse(localStorage.getItem('babyLandOrders')) || [];
+        }
+        
+        // Update order history display
+        function updateOrderHistory() {
+            const historyItems = document.getElementById('history-items');
+            const orders = loadOrdersFromLocalStorage();
+            
+            if (orders.length === 0) {
+                historyItems.innerHTML = '<div class="history-empty">لا توجد طلبات سابقة</div>';
+                return;
+            }
+            
+            historyItems.innerHTML = '';
+            
+            // Sort orders by date (newest first)
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            orders.forEach(order => {
+                const historyItem = document.createElement('div');
+                historyItem.classList.add('history-item');
+                
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(order.status) {
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'قيد الانتظار';
+                        break;
+                    case 'processing':
+                        statusClass = 'status-processing';
+                        statusText = 'قيد التنفيذ';
+                        break;
+                    case 'completed':
+                        statusClass = 'status-completed';
+                        statusText = 'مكتمل';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'status-cancelled';
+                        statusText = 'ملغي';
+                        break;
+                }
+                
+                historyItem.innerHTML = `
+                    <div class="history-item-header">
+                        <div>
+                            <strong>طلب #${order.id}</strong>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="history-item-date">${formatDate(order.date)}</div>
+                    </div>
+                    <div>
+                        <div><strong>الاسم:</strong> ${order.customer.name}</div>
+                        <div><strong>اسم المحل:</strong> ${order.customer.shop}</div>
+                        <div class="history-item-products">
+                            <strong>المنتجات:</strong> ${order.items.length} منتج
+                        </div>
+                    </div>
+                `;
+                
+                // Add click event to show order details
+                historyItem.addEventListener('click', () => {
+                    // Here you can show a modal with order details
+                    const message = generateWhatsAppMessage(order);
+                    window.open(`https://wa.me/?text=${message}`, '_blank');
+                });
+                
+                historyItems.appendChild(historyItem);
+            });
+        }
+        
+        // Update admin order list
+        function updateAdminOrderList() {
+            const adminOrderList = document.getElementById('admin-order-list');
+            const orders = loadOrdersFromLocalStorage();
+            
+            if (orders.length === 0) {
+                adminOrderList.innerHTML = '<div style="padding: 20px; text-align: center;">لا توجد طلبات</div>';
+                return;
+            }
+            
+            adminOrderList.innerHTML = '';
+            
+            // Sort orders by date (newest first)
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            orders.forEach(order => {
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-list-item');
+                
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(order.status) {
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'قيد الانتظار';
+                        break;
+                    case 'processing':
+                        statusClass = 'status-processing';
+                        statusText = 'قيد التنفيذ';
+                        break;
+                    case 'completed':
+                        statusClass = 'status-completed';
+                        statusText = 'مكتمل';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'status-cancelled';
+                        statusText = 'ملغي';
+                        break;
+                }
+                
+                orderItem.innerHTML = `
+                    <div>${order.id}</div>
+                    <div>${order.customer.name}</div>
+                    <div>${formatDate(order.date)}</div>
+                    <div><span class="status-badge ${statusClass}">${statusText}</span></div>
+                    <div><button class="view-order-btn" data-id="${order.id}">عرض</button></div>
+                `;
+                
+                adminOrderList.appendChild(orderItem);
+            });
+            
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-order-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const orderId = this.getAttribute('data-id');
+                    showOrderDetails(orderId);
+                });
+            });
+        }
+        
+        // Show order details in admin panel
+        function showOrderDetails(orderId) {
+            const orders = loadOrdersFromLocalStorage();
+            const order = orders.find(o => o.id == orderId);
+            
+            if (!order) return;
+            
+            document.getElementById('detail-order-id').textContent = order.id;
+            document.getElementById('detail-customer-name').textContent = order.customer.name;
+            document.getElementById('detail-shop-name').textContent = order.customer.shop;
+            document.getElementById('detail-address').textContent = order.customer.address;
+            document.getElementById('detail-phone').textContent = order.customer.phone;
+            document.getElementById('detail-deposit').textContent = order.customer.deposit;
+            document.getElementById('detail-notes').textContent = order.customer.notes || 'لا توجد ملاحظات';
+            document.getElementById('detail-date').textContent = formatDate(order.date);
+            
+            let statusText = '';
+            switch(order.status) {
+                case 'pending':
+                    statusText = 'قيد الانتظار';
+                    break;
+                case 'processing':
+                    statusText = 'قيد التنفيذ';
+                    break;
+                case 'completed':
+                    statusText = 'مكتمل';
+                    break;
+                case 'cancelled':
+                    statusText = 'ملغي';
+                    break;
+            }
+            
+            document.getElementById('detail-status').textContent = statusText;
+            
+            const productsContainer = document.getElementById('detail-products');
+            productsContainer.innerHTML = '';
+            
+            order.items.forEach((item, index) => {
+                const productItem = document.createElement('div');
+                productItem.classList.add('order-product-item');
+                productItem.innerHTML = `
+                    <div>${index + 1}. كود: ${item.code}</div>
+                    <div>الكمية: ${item.quantity}</div>
+                `;
+                productsContainer.appendChild(productItem);
+            });
+            
+            // Update WhatsApp button
+            document.getElementById('send-whatsapp-btn').onclick = function() {
+                const message = generateWhatsAppMessage(order);
+                window.open(`https://wa.me/${adminWhatsAppNumber}?text=${message}`, '_blank');
+            };
+            
+            // Update status button
+            document.getElementById('update-status-btn').onclick = function() {
+                updateOrderStatus(orderId);
+            };
+            
+            document.getElementById('order-details').style.display = 'block';
+        }
+        
+        // Update order status
+        function updateOrderStatus(orderId) {
+            const orders = loadOrdersFromLocalStorage();
+            const orderIndex = orders.findIndex(o => o.id == orderId);
+            
+            if (orderIndex === -1) return;
+            
+            const currentStatus = orders[orderIndex].status;
+            let newStatus = '';
+            
+            switch(currentStatus) {
+                case 'pending':
+                    newStatus = 'processing';
+                    break;
+                case 'processing':
+                    newStatus = 'completed';
+                    break;
+                case 'completed':
+                    newStatus = 'pending';
+                    break;
+                case 'cancelled':
+                    newStatus = 'pending';
+                    break;
+                default:
+                    newStatus = 'pending';
+            }
+            
+            orders[orderIndex].status = newStatus;
+            localStorage.setItem('babyLandOrders', JSON.stringify(orders));
+            
+            // Update UI
+            updateAdminOrderList();
+            showOrderDetails(orderId);
+        }
+        
+        // Sample product data
+        const sampleProducts = [
+            { code: 'BL001', name: 'بيبي بلانكيت', price: 150, stock: 25 },
+            { code: 'BL002', name: 'سرير أطفال', price: 1200, stock: 10 },
+            { code: 'BL003', name: 'عربة أطفال', price: 2500, stock: 5 },
+            { code: 'BL004', name: 'مقعد سيارة للأطفال', price: 1800, stock: 8 },
+            { code: 'BL005', name: 'حفاضات (عبوة)', price: 120, stock: 50 },
+            { code: 'BL006', name: 'زجاجة رضاعة', price: 85, stock: 30 },
+            { code: 'BL007', name: 'ملابس أطفال', price: 200, stock: 40 },
+            { code: 'BL008', name: 'لعبة تعليمية', price: 95, stock: 20 },
+            { code: 'BL009', name: 'بطانية أطفال', price: 180, stock: 15 },
+            { code: 'BL010', name: 'مستلزمات استحمام', price: 110, stock: 25 }
+        ];
+        
+        // Search products
+        function searchProducts(query) {
+            if (!query) return [];
+            
+            query = query.toLowerCase();
+            return sampleProducts.filter(product => 
+                product.code.toLowerCase().includes(query) || 
+                product.name.toLowerCase().includes(query)
+            );
+        }
+        
+        // Display product search results
+        function displayProductResults(products) {
+            const resultsContainer = document.getElementById('product-results');
+            
+            if (products.length === 0) {
+                resultsContainer.innerHTML = '<div style="text-align: center; padding: 20px;">لا توجد نتائج</div>';
+                return;
+            }
+            
+            resultsContainer.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                
+                let stockClass = '';
+                let stockText = '';
+                
+                if (product.stock > 10) {
+                    stockClass = 'in-stock';
+                    stockText = 'متوفر';
+                } else if (product.stock > 0) {
+                    stockClass = 'low-stock';
+                    stockText = `متوفر (${product.stock} فقط)`;
+                } else {
+                    stockClass = 'out-of-stock';
+                    stockText = 'غير متوفر';
+                }
+                
+                productCard.innerHTML = `
+                    <div class="product-image">📦</div>
+                    <div class="product-info">
+                        <div class="product-code">${product.code}</div>
+                        <div>${product.name}</div>
+                        <div class="product-price">${product.price} جنيه</div>
+                        <div class="product-stock ${stockClass}">${stockText}</div>
+                    </div>
+                    <button class="add-to-order-btn" data-code="${product.code}">إضافة للطلب</button>
+                `;
+                
+                resultsContainer.appendChild(productCard);
+            });
+            
+            // Add event listeners to add buttons
+            document.querySelectorAll('.add-to-order-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const code = this.getAttribute('data-code');
+                    addProductToOrder(code);
+                });
+            });
+        }
+        
+        // Add product to order
+        function addProductToOrder(code) {
+            // Switch to order tab
+            switchTab('order-section');
+            
+            // Add product code to first empty input
+            const codeInputs = document.querySelectorAll('.code-input');
+            let added = false;
+            
+            for (let i = 0; i < codeInputs.length; i++) {
+                if (!codeInputs[i].value) {
+                    codeInputs[i].value = code;
+                    const quantityInput = document.querySelectorAll('.quantity-input')[i];
+                    quantityInput.value = 1;
+                    quantityInput.focus();
+                    added = true;
+                    break;
+                }
+            }
+            
+            // If no empty input found, add a new row
+            if (!added) {
+                const newRow = document.createElement('div');
+                newRow.classList.add('order-row');
+                newRow.innerHTML = `
+                    <input type="text" placeholder="أدخل الكود" class="code-input" value="${code}">
+                    <input type="number" placeholder="أدخل الكمية" class="quantity-input" min="1" value="1">
+                `;
+                document.getElementById('order-items').appendChild(newRow);
+                newRow.querySelector('.quantity-input').focus();
+            }
+        }
+        
+        // Function to automatically send WhatsApp message to admin
+        function sendWhatsAppToAdmin(orderData) {
+            try {
+                const message = generateWhatsAppMessage(orderData);
+                // Open WhatsApp in a new window
+                window.open(`https://wa.me/${adminWhatsAppNumber}?text=${message}`, '_blank');
+                
+                // Add a notification to the success page
+                const successMessage = document.querySelector('.success-message');
+                successMessage.innerHTML = 'شكراً لك! تم إرسال طلبك بنجاح<br><span style="color: #25D366; font-size: 16px;">✓ تم إرسال نسخة للإدارة</span>';
+            } catch (error) {
+                console.error('Error sending WhatsApp to admin:', error);
+                // If automatic sending fails, we'll rely on the manual button
+            }
+        }
+        
+        // Function to send order to Google Sheets
+        function sendOrderToGoogleSheets(orderData) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbw7-kx9d-UJ_jeXcQzLm-yEz2zCrs_wNg7Hr_Svt1NgS0Cr-8C6DZ0tH7aBn5_UOpHT/exec';
+            
+            // Method 1: Using fetch with CORS mode
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', // This helps with CORS issues
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => {
+                // Since we're using no-cors, we won't get a proper response
+                // So we'll just assume success
+                loadingScreen.style.display = 'none';
+                orderSection.style.display = 'none';
+                successPage.style.display = 'block';
+                
+                // Save order to local storage
+                saveOrderToLocalStorage(orderData);
+                
+                // Update order history
+                updateOrderHistory();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Try alternative method if the first one fails
+                sendOrderViaForm(orderData);
+            });
+        }
+        
+        // Alternative method using form submission
+        function sendOrderViaForm(orderData) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycby_GZFTMqR2a-zHqhlRspaBOKUw3wEw43MPJk8tYLXkDoTx943r0YoFyDAu23Eye9Q/exec';
+            
+            // Create a hidden form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = scriptURL;
+            form.target = '_blank'; // Open in new tab to avoid page navigation
+            form.style = 'display: none';
+            
+            // Add data as hidden fields
+            const dataField = document.createElement('input');
+            dataField.type = 'hidden';
+            dataField.name = 'data';
+            dataField.value = JSON.stringify(orderData);
+            form.appendChild(dataField);
+            
+            // Add form to document, submit it, and remove it
+            document.body.appendChild(form);
+            
+            // Create an iframe to handle the submission
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.style = 'display: none';
+            document.body.appendChild(iframe);
+            
+            form.target = 'hidden_iframe';
+            form.submit();
+            
+            // Show success page regardless (we can't easily detect errors in this method)
+            loadingScreen.style.display = 'none';
+            orderSection.style.display = 'none';
+            successPage.style.display = 'block';
+            
+            // Save order to local storage
+            saveOrderToLocalStorage(orderData);
+            
+            // Update order history
+            updateOrderHistory();
+            
+            // Clean up
+            setTimeout(() => {
+                document.body.removeChild(form);
+                document.body.removeChild(iframe);
+            }, 5000);
+        }
+        
+        // Switch between tabs
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.getElementById('order-section').style.display = 'none';
+            document.getElementById('order-history').style.display = 'none';
+            document.getElementById('product-lookup').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('success-page').style.display = 'none';
+            
+            // Show selected tab
+            document.getElementById(tabId).style.display = 'block';
+            
+            // Update active tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update data for specific tabs
+            if (tabId === 'order-history') {
+                updateOrderHistory();
+            } else if (tabId === 'admin-panel') {
+                updateAdminOrderList();
+            }
+        }
+        
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             createBubbles();
+            
+            // Admin WhatsApp number
+            const adminWhatsAppNumber = '201033110143';
             
             const addMoreBtn = document.getElementById('add-more-btn');
             const viewCartBtn = document.getElementById('view-cart-btn');
             const submitOrderBtn = document.getElementById('submit-order-btn');
             const newOrderBtn = document.getElementById('new-order-btn');
             const whatsappBtn = document.getElementById('whatsapp-btn');
+            const adminWhatsappBtn = document.getElementById('admin-whatsapp-btn');
             const orderItems = document.getElementById('order-items');
             const cartView = document.getElementById('cart-view');
             const cartItems = document.getElementById('cart-items');
@@ -521,9 +1418,19 @@
             const successPage = document.getElementById('success-page');
             const loadingScreen = document.getElementById('loading-screen');
             const loadingTimer = document.getElementById('loading-timer');
+            const adminLoginBtn = document.getElementById('admin-login-btn');
+            const productSearchBtn = document.getElementById('product-search-btn');
             
             // Store order data globally to use with WhatsApp
             let globalOrderData = null;
+            
+            // Tab navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
             
             // Add more order rows
             addMoreBtn.addEventListener('click', function() {
@@ -579,6 +1486,14 @@
                     const phone = formatPhoneForWhatsApp(globalOrderData.customer.phone);
                     const message = generateWhatsAppMessage(globalOrderData);
                     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                }
+            });
+            
+            // Admin WhatsApp button click handler
+            adminWhatsappBtn.addEventListener('click', function() {
+                if (globalOrderData) {
+                    const message = generateWhatsAppMessage(globalOrderData);
+                    window.open(`https://wa.me/${adminWhatsAppNumber}?text=${message}`, '_blank');
                 }
             });
             
@@ -638,79 +1553,19 @@
                         
                         // Try to send data to Google Sheets
                         sendOrderToGoogleSheets(orderData);
+                        
+                        // Show success page first
+                        loadingScreen.style.display = 'none';
+                        orderSection.style.display = 'none';
+                        successPage.style.display = 'block';
+                        
+                        // Then send WhatsApp message to admin with a slight delay
+                        setTimeout(() => {
+                            sendWhatsAppToAdmin(orderData);
+                        }, 1000);
                     }
                 }, 1000);
             });
-            
-            // Function to send order to Google Sheets
-            function sendOrderToGoogleSheets(orderData) {
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbw7-kx9d-UJ_jeXcQzLm-yEz2zCrs_wNg7Hr_Svt1NgS0Cr-8C6DZ0tH7aBn5_UOpHT/exec';
-                
-                // Method 1: Using fetch with CORS mode
-                fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', // This helps with CORS issues
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(orderData)
-                })
-                .then(response => {
-                    // Since we're using no-cors, we won't get a proper response
-                    // So we'll just assume success
-                    loadingScreen.style.display = 'none';
-                    orderSection.style.display = 'none';
-                    successPage.style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    
-                    // Try alternative method if the first one fails
-                    sendOrderViaForm(orderData);
-                });
-            }
-            
-            // Alternative method using form submission
-            function sendOrderViaForm(orderData) {
-                const scriptURL = 'https://script.google.com/macros/s/AKfycby_GZFTMqR2a-zHqhlRspaBOKUw3wEw43MPJk8tYLXkDoTx943r0YoFyDAu23Eye9Q/exec';
-                
-                // Create a hidden form
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = scriptURL;
-                form.target = '_blank'; // Open in new tab to avoid page navigation
-                form.style.display = 'none';
-                
-                // Add data as hidden fields
-                const dataField = document.createElement('input');
-                dataField.type = 'hidden';
-                dataField.name = 'data';
-                dataField.value = JSON.stringify(orderData);
-                form.appendChild(dataField);
-                
-                // Add form to document, submit it, and remove it
-                document.body.appendChild(form);
-                
-                // Create an iframe to handle the submission
-                const iframe = document.createElement('iframe');
-                iframe.name = 'hidden_iframe';
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
-                
-                form.target = 'hidden_iframe';
-                form.submit();
-                
-                // Show success page regardless (we can't easily detect errors in this method)
-                loadingScreen.style.display = 'none';
-                orderSection.style.display = 'none';
-                successPage.style.display = 'block';
-                
-                // Clean up
-                setTimeout(() => {
-                    document.body.removeChild(form);
-                    document.body.removeChild(iframe);
-                }, 5000);
-            }
             
             // New order button
             newOrderBtn.addEventListener('click', function() {
@@ -736,11 +1591,47 @@
                 globalOrderData = null;
                 
                 // Show order section
+                switchTab('order-section');
                 cartView.style.display = 'none';
                 customerForm.style.display = 'none';
-                successPage.style.display = 'none';
-                orderSection.style.display = 'block';
             });
+            
+            // Admin login
+            adminLoginBtn.addEventListener('click', function() {
+                const username = document.getElementById('admin-username').value;
+                const password = document.getElementById('admin-password').value;
+                
+                // Simple authentication (in a real app, this should be more secure)
+                if (username === 'admin' && password === 'admin123') {
+                    document.getElementById('admin-login').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'block';
+                    updateAdminOrderList();
+                } else {
+                    showError('اسم المستخدم أو كلمة المرور غير صحيحة');
+                }
+            });
+            
+            // Product search
+            productSearchBtn.addEventListener('click', function() {
+                const query = document.getElementById('product-search').value;
+                if (!query) {
+                    showError('يرجى إدخال كلمة البحث');
+                    return;
+                }
+                
+                const results = searchProducts(query);
+                displayProductResults(results);
+            });
+            
+            // Also trigger search on Enter key
+            document.getElementById('product-search').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    productSearchBtn.click();
+                }
+            });
+            
+            // Initialize order history
+            updateOrderHistory();
         });
     </script>
 </body>
