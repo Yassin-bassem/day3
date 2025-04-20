@@ -1,269 +1,745 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Land</title>
+    <title>Baby Land - نظام الطلبات</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        :root {
+            --pink-color: #ff69b4;
+            --blue-color: #1e90ff;
+            --light-pink: #ffb6c1;
+            --light-blue: #87cefa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            background: linear-gradient(135deg, var(--light-pink), var(--light-blue));
+            min-height: 100vh;
             padding: 20px;
-            direction: rtl;
         }
-        h1 {
-            text-align: center;
-            color: #fff;
-            font-size: 36px;
-        }
-        table, th, td {
-            border: 1px solid #333;
-            border-collapse: collapse;
-            padding: 10px;
-            text-align: center;
-            width: 50%;
+        
+        .container {
+            max-width: 1000px;
             margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
-        th {
-            background-color: #ff6f91;
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--pink-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        .logo span {
+            color: var(--blue-color);
+        }
+        
+        h1, h2 {
+            color: var(--blue-color);
+            margin-bottom: 15px;
+        }
+        
+        .order-form {
+            margin-bottom: 30px;
+        }
+        
+        .order-header {
+            display: flex;
+            background-color: var(--blue-color);
             color: white;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #56CCF2;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #4fa3d1;
-        }
-        .hidden {
-            display: none;
-        }
-        .cart-summary {
-            margin-top: 20px;
-            text-align: right;
-        }
-        input, textarea {
-            width: 100%;
             padding: 10px;
-            margin: 5px 0;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+        }
+        
+        .order-header div {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .order-items {
+            margin-bottom: 15px;
+        }
+        
+        .order-row {
+            display: flex;
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .order-row input {
+            flex: 1;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
         }
-        form {
-            width: 50%;
-            margin: 0 auto;
+        
+        .order-row input:focus {
+            border-color: var(--pink-color);
+            box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+            outline: none;
         }
-        #thank-you-section {
-            text-align: center;
+        
+        .order-row input:first-child {
+            margin-left: 10px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            background: linear-gradient(45deg, var(--pink-color), var(--blue-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .customer-form {
+            display: none;
+            animation: slideUp 0.5s;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--blue-color);
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--pink-color);
+            box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+            outline: none;
+        }
+        
+        .required::after {
+            content: " *";
+            color: red;
+        }
+        
+        .cart-view {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .loading-message {
+            color: white;
             font-size: 24px;
-            color: green;
+            margin-bottom: 20px;
+        }
+        
+        .loading-timer {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .success-page {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            animation: fadeIn 1s;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .success-message {
+            font-size: 24px;
+            color: var(--blue-color);
+            margin-bottom: 30px;
+        }
+        
+        .whatsapp-button {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .whatsapp-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .floating-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .bubble {
+            position: absolute;
+            background: linear-gradient(45deg, var(--pink-color), var(--blue-color));
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .error-message {
+            background-color: #ffebee;
+            color: #d32f2f;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d32f2f;
+            display: none;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Baby Land</h1>
-
-    <div id="order-section">
-        <h2>إدخال الأوردرات</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>كود</th>
-                    <th>الكمية</th>
-                </tr>
-            </thead>
-            <tbody id="order-body">
-                <tr>
-                    <td><input type="text" name="code[]" required></td>
-                    <td><input type="number" name="qty[]" required></td>
-                </tr>
-            </tbody>
-        </table>
-        <button type="button" onclick="addRow()">إضافة المزيد</button>
-        <button type="button" onclick="showCart()">عرض السلة</button>
+    <div class="container">
+        <div class="floating-bubbles" id="bubbles"></div>
+        
+        <header>
+            <div class="logo">Baby <span>Land</span></div>
+            <h1>نظام الطلبات</h1>
+        </header>
+        
+        <div id="error-message" class="error-message"></div>
+        
+        <div id="order-section">
+            <div class="order-form">
+                <h2>إضافة طلب جديد</h2>
+                <div class="order-header">
+                    <div>الكود</div>
+                    <div>الكمية</div>
+                </div>
+                <div class="order-items" id="order-items">
+                    <div class="order-row">
+                        <input type="text" placeholder="أدخل الكود" class="code-input">
+                        <input type="number" placeholder="أدخل الكمية" class="quantity-input" min="1">
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="add-more-btn">إضافة المزيد</button>
+                    <button id="view-cart-btn">عرض السلة</button>
+                </div>
+            </div>
+            
+            <div class="cart-view" id="cart-view">
+                <h2>محتويات السلة</h2>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div class="customer-form" id="customer-form">
+                    <h2>بيانات العميل</h2>
+                    <div class="form-group">
+                        <label class="required">الاسم</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">اسم المحل</label>
+                        <input type="text" id="shop-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">العنوان</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">رقم التليفون</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">العربون</label>
+                        <input type="number" id="deposit" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>ملاحظات إضافية</label>
+                        <textarea id="notes" rows="3"></textarea>
+                    </div>
+                    <button id="submit-order-btn">إرسال الطلب</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success-page" id="success-page">
+            <div class="success-icon">✓</div>
+            <div class="success-message">شكراً لك! تم إرسال طلبك بنجاح</div>
+            <button id="new-order-btn">طلب جديد</button>
+            <button id="whatsapp-btn" class="whatsapp-button">
+                <span class="whatsapp-icon">📱</span>
+                فتح الطلب في واتساب
+            </button>
+        </div>
     </div>
-
-    <div id="cart-section" class="hidden">
-        <h2>تفاصيل السلة</h2>
-        <div id="cart-summary" class="cart-summary"></div>
-        <h3>الرجاء إدخال بياناتك لإرسال الطلب:</h3>
-        <form id="order-form">
-            <label>الاسم:</label>
-            <input type="text" name="name" required><br><br>
-
-            <label>اسم المحل:</label>
-            <input type="text" name="store-name" required><br><br>
-
-            <label>العنوان:</label>
-            <input type="text" name="address" required><br><br>
-
-            <label>رقم التليفون:</label>
-            <input type="tel" name="phone" required><br><br>
-
-            <label>عربون:</label>
-            <input type="number" name="deposit" required><br><br>
-
-            <label>رقم الواتساب:</label>
-            <input type="tel" name="whatsapp" required><br><br>
-
-            <label>الملاحظات:</label>
-            <textarea name="notes"></textarea><br><br>
-
-            <button type="submit">إرسال الطلب</button>
-        </form>
+    
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-message">برجاء الانتظار، جاري إرسال طلبك...</div>
+        <div class="loading-timer" id="loading-timer">10</div>
     </div>
-
-    <div id="thank-you-section" class="hidden">
-        <h2>شكراً! تم إرسال طلبك بنجاح.</h2>
-    </div>
-
+    
     <script>
-        // إضافة صف جديد عند الضغط على "إضافة المزيد"
-        function addRow() {
-            const tableBody = document.getElementById('order-body');
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><input type="text" name="code[]" required></td>
-                <td><input type="number" name="qty[]" required></td>
-            `;
-            tableBody.appendChild(row);
-        }
-
-        // عرض تفاصيل السلة عند الضغط على "عرض السلة"
-        function showCart() {
-            const codes = document.getElementsByName('code[]');
-            const qtys = document.getElementsByName('qty[]');
-            let summaryHTML = "<ul>";
-            for (let i = 0; i < codes.length; i++) {
-                if (codes[i].value && qtys[i].value) {
-                    summaryHTML += `<li>${codes[i].value} - ${qtys[i].value}</li>`;
-                }
+        // Create floating bubbles
+        function createBubbles() {
+            const bubblesContainer = document.getElementById('bubbles');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 100 + 20;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 8;
+                const duration = Math.random() * 10 + 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.top = `${Math.random() * 100}%`;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.animationDuration = `${duration}s`;
+                
+                bubblesContainer.appendChild(bubble);
             }
-            summaryHTML += "</ul>";
-            document.getElementById("cart-summary").innerHTML = summaryHTML;
-            document.getElementById("order-section").classList.add("hidden");
-            document.getElementById("cart-section").classList.remove("hidden");
         }
-
-        // Function to format phone number for WhatsApp
-        function formatWhatsAppNumber(phoneNumber) {
+        
+        // Format phone number for WhatsApp (remove any non-digit characters)
+        function formatPhoneForWhatsApp(phone) {
             // Remove any non-digit characters
-            phoneNumber = phoneNumber.replace(/\D/g, '');
+            let formattedPhone = phone.replace(/\D/g, '');
             
-            // If it starts with 0, replace with country code (20 for Egypt)
-            if (phoneNumber.startsWith('0')) {
-                phoneNumber = '20' + phoneNumber.substring(1);
+            // Ensure it starts with country code (assuming Egypt +20)
+            if (!formattedPhone.startsWith('2') && formattedPhone.length === 10) {
+                formattedPhone = '2' + formattedPhone;
+            } else if (!formattedPhone.startsWith('2') && formattedPhone.length === 11) {
+                formattedPhone = '2' + formattedPhone;
             }
             
-            // If it doesn't have a country code, add Egypt's country code
-            if (phoneNumber.length === 10) { // Egyptian numbers without country code
-                phoneNumber = '20' + phoneNumber;
-            }
-            
-            return phoneNumber;
+            return formattedPhone;
         }
-
-        // إرسال البيانات إلى Google Script
-        document.getElementById("order-form").addEventListener("submit", function(event) {
-            event.preventDefault();
+        
+        // Generate WhatsApp message with order details
+        function generateWhatsAppMessage(orderData) {
+            let message = `*طلب جديد من Baby Land*\n\n`;
+            message += `*بيانات العميل:*\n`;
+            message += `الاسم: ${orderData.customer.name}\n`;
+            message += `اسم المحل: ${orderData.customer.shop}\n`;
+            message += `العنوان: ${orderData.customer.address}\n`;
+            message += `رقم التليفون: ${orderData.customer.phone}\n`;
+            message += `العربون: ${orderData.customer.deposit}\n`;
             
-            const codes = document.getElementsByName('code[]');
-            const qtys = document.getElementsByName('qty[]');
-            const formData = new FormData(this);
-            const orderDetails = {
-                name: formData.get("name"),
-                storeName: formData.get("store-name"),
-                address: formData.get("address"),
-                phone: formData.get("phone"),
-                deposit: formData.get("deposit"),
-                whatsapp: formData.get("whatsapp"),
-                notes: formData.get("notes"),
-                items: []
-            };
-
-            // Collect all items with their codes and quantities
-            for (let i = 0; i < codes.length; i++) {
-                if (codes[i].value && qtys[i].value) {
-                    orderDetails.items.push({
-                        code: codes[i].value,
-                        quantity: qtys[i].value
-                    });
-                }
+            if (orderData.customer.notes) {
+                message += `ملاحظات: ${orderData.customer.notes}\n`;
             }
-
-            // Make sure your Google Script URL is correct and the web app is deployed with proper permissions
-            const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxIMf5mqLExYzBzt2Z_kT1UglinBsWofE6G8Py2nrKZkEgdNpKPsYSlTvO44avtHtWX/exec'; // Replace with your actual URL
-
-            // Convert orderDetails to URL-encoded form data format which works better with Google Apps Script
-            const formDataForGoogleScript = new URLSearchParams();
-            formDataForGoogleScript.append('data', JSON.stringify(orderDetails));
-
-            fetch(googleScriptUrl, {
-                method: 'POST',
-                mode: 'no-cors', // Important for cross-origin requests to Google Script
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: formDataForGoogleScript.toString(),
-            })
-            .then(() => {
-                console.log('Order sent to Google Sheets');
+            
+            message += `\n*المنتجات:*\n`;
+            
+            orderData.items.forEach((item, index) => {
+                message += `${index + 1}. كود: ${item.code} - الكمية: ${item.quantity}\n`;
+            });
+            
+            message += `\nشكراً لطلبك من Baby Land!`;
+            
+            return encodeURIComponent(message);
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            // Hide loading screen if it's visible
+            document.getElementById('loading-screen').style.display = 'none';
+            
+            // Auto-hide error after 10 seconds
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 10000);
+        }
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            createBubbles();
+            
+            const addMoreBtn = document.getElementById('add-more-btn');
+            const viewCartBtn = document.getElementById('view-cart-btn');
+            const submitOrderBtn = document.getElementById('submit-order-btn');
+            const newOrderBtn = document.getElementById('new-order-btn');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const orderItems = document.getElementById('order-items');
+            const cartView = document.getElementById('cart-view');
+            const cartItems = document.getElementById('cart-items');
+            const customerForm = document.getElementById('customer-form');
+            const orderSection = document.getElementById('order-section');
+            const successPage = document.getElementById('success-page');
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingTimer = document.getElementById('loading-timer');
+            
+            // Store order data globally to use with WhatsApp
+            let globalOrderData = null;
+            
+            // Add more order rows
+            addMoreBtn.addEventListener('click', function() {
+                const newRow = document.createElement('div');
+                newRow.classList.add('order-row');
+                newRow.innerHTML = `
+                    <input type="text" placeholder="أدخل الكود" class="code-input">
+                    <input type="number" placeholder="أدخل الكمية" class="quantity-input" min="1">
+                `;
+                orderItems.appendChild(newRow);
+            });
+            
+            // View cart
+            viewCartBtn.addEventListener('click', function() {
+                const codeInputs = document.querySelectorAll('.code-input');
+                const quantityInputs = document.querySelectorAll('.quantity-input');
                 
-                // Create detailed WhatsApp message with all order information
-                let detailedMessage = `*طلب جديد من Baby Land*\n\n`;
-                detailedMessage += `*معلومات العميل:*\n`;
-                detailedMessage += `الاسم: ${orderDetails.name}\n`;
-                detailedMessage += `اسم المحل: ${orderDetails.storeName}\n`;
-                detailedMessage += `العنوان: ${orderDetails.address}\n`;
-                detailedMessage += `رقم التليفون: ${orderDetails.phone}\n`;
-                detailedMessage += `عربون: ${orderDetails.deposit}\n`;
-                detailedMessage += `رقم الواتساب: ${orderDetails.whatsapp}\n`;
-                
-                if (orderDetails.notes) {
-                    detailedMessage += `ملاحظات: ${orderDetails.notes}\n`;
+                // Check if any items are added
+                let hasItems = false;
+                for (let i = 0; i < codeInputs.length; i++) {
+                    if (codeInputs[i].value && quantityInputs[i].value) {
+                        hasItems = true;
+                        break;
+                    }
                 }
                 
-                detailedMessage += `\n*تفاصيل الطلب:*\n`;
-                orderDetails.items.forEach((item, index) => {
-                    detailedMessage += `${index + 1}. كود: ${item.code} - الكمية: ${item.quantity}\n`;
-                });
+                if (!hasItems) {
+                    showError('يرجى إضافة منتج واحد على الأقل');
+                    return;
+                }
                 
-                // Format WhatsApp numbers properly
-                const ownerWhatsApp = formatWhatsAppNumber('201033110143'); // Replace with your WhatsApp number
-                const customerWhatsApp = formatWhatsAppNumber(orderDetails.whatsapp);
+                // Display cart items
+                cartItems.innerHTML = '';
+                for (let i = 0; i < codeInputs.length; i++) {
+                    if (codeInputs[i].value && quantityInputs[i].value) {
+                        const cartItem = document.createElement('div');
+                        cartItem.classList.add('cart-item');
+                        cartItem.innerHTML = `
+                            <div>الكود: ${codeInputs[i].value}</div>
+                            <div>الكمية: ${quantityInputs[i].value}</div>
+                        `;
+                        cartItems.appendChild(cartItem);
+                    }
+                }
                 
-                // Send detailed WhatsApp message to owner
-                const ownerWhatsAppUrl = `https://api.whatsapp.com/send?phone=${ownerWhatsApp}&text=${encodeURIComponent(detailedMessage)}`;
-                window.open(ownerWhatsAppUrl, '_blank');
+                cartView.style.display = 'block';
+                customerForm.style.display = 'block';
+            });
+            
+            // WhatsApp button click handler
+            whatsappBtn.addEventListener('click', function() {
+                if (globalOrderData) {
+                    const phone = formatPhoneForWhatsApp(globalOrderData.customer.phone);
+                    const message = generateWhatsAppMessage(globalOrderData);
+                    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                }
+            });
+            
+            // Submit order
+            submitOrderBtn.addEventListener('click', function() {
+                const customerName = document.getElementById('customer-name').value;
+                const shopName = document.getElementById('shop-name').value;
+                const address = document.getElementById('address').value;
+                const phone = document.getElementById('phone').value;
+                const deposit = document.getElementById('deposit').value;
                 
-                // Send confirmation to customer with order details
-                if (customerWhatsApp) {
-                    let customerMessage = `*شكراً لطلبك من Baby Land!*\n\n`;
-                    customerMessage += `*تفاصيل طلبك:*\n`;
-                    orderDetails.items.forEach((item, index) => {
-                        customerMessage += `${index + 1}. كود: ${item.code} - الكمية: ${item.quantity}\n`;
-                    });
-                    customerMessage += `\nتم استلام طلبك وسنتواصل معك قريباً.`;
+                // Validate required fields
+                if (!customerName || !shopName || !address || !phone || !deposit) {
+                    showError('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                // Show loading screen
+                loadingScreen.style.display = 'flex';
+                let timeLeft = 10;
+                
+                // Collect order data
+                const orderData = {
+                    customer: {
+                        name: customerName,
+                        shop: shopName,
+                        address: address,
+                        phone: phone,
+                        deposit: deposit,
+                        notes: document.getElementById('notes').value
+                    },
+                    items: []
+                };
+                
+                const codeInputs = document.querySelectorAll('.code-input');
+                const quantityInputs = document.querySelectorAll('.quantity-input');
+                
+                for (let i = 0; i < codeInputs.length; i++) {
+                    if (codeInputs[i].value && quantityInputs[i].value) {
+                        orderData.items.push({
+                            code: codeInputs[i].value,
+                            quantity: quantityInputs[i].value
+                        });
+                    }
+                }
+                
+                // Save order data globally for WhatsApp
+                globalOrderData = orderData;
+                
+                // Countdown timer
+                const timer = setInterval(function() {
+                    timeLeft--;
+                    loadingTimer.textContent = timeLeft;
                     
-                    const customerWhatsAppUrl = `https://api.whatsapp.com/send?phone=${customerWhatsApp}&text=${encodeURIComponent(customerMessage)}`;
-                    setTimeout(() => {
-                        window.open(customerWhatsAppUrl, '_blank');
-                    }, 1000); // Delay opening the second WhatsApp window
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        
+                        // Try to send data to Google Sheets
+                        sendOrderToGoogleSheets(orderData);
+                    }
+                }, 1000);
+            });
+            
+            // Function to send order to Google Sheets
+            function sendOrderToGoogleSheets(orderData) {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbw7-kx9d-UJ_jeXcQzLm-yEz2zCrs_wNg7Hr_Svt1NgS0Cr-8C6DZ0tH7aBn5_UOpHT/exec';
+                
+                // Method 1: Using fetch with CORS mode
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // This helps with CORS issues
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => {
+                    // Since we're using no-cors, we won't get a proper response
+                    // So we'll just assume success
+                    loadingScreen.style.display = 'none';
+                    orderSection.style.display = 'none';
+                    successPage.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    
+                    // Try alternative method if the first one fails
+                    sendOrderViaForm(orderData);
+                });
+            }
+            
+            // Alternative method using form submission
+            function sendOrderViaForm(orderData) {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycby_GZFTMqR2a-zHqhlRspaBOKUw3wEw43MPJk8tYLXkDoTx943r0YoFyDAu23Eye9Q/exec';
+                
+                // Create a hidden form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = scriptURL;
+                form.target = '_blank'; // Open in new tab to avoid page navigation
+                form.style.display = 'none';
+                
+                // Add data as hidden fields
+                const dataField = document.createElement('input');
+                dataField.type = 'hidden';
+                dataField.name = 'data';
+                dataField.value = JSON.stringify(orderData);
+                form.appendChild(dataField);
+                
+                // Add form to document, submit it, and remove it
+                document.body.appendChild(form);
+                
+                // Create an iframe to handle the submission
+                const iframe = document.createElement('iframe');
+                iframe.name = 'hidden_iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                form.target = 'hidden_iframe';
+                form.submit();
+                
+                // Show success page regardless (we can't easily detect errors in this method)
+                loadingScreen.style.display = 'none';
+                orderSection.style.display = 'none';
+                successPage.style.display = 'block';
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(form);
+                    document.body.removeChild(iframe);
+                }, 5000);
+            }
+            
+            // New order button
+            newOrderBtn.addEventListener('click', function() {
+                // Reset form
+                const orderRows = document.querySelectorAll('.order-row');
+                for (let i = 1; i < orderRows.length; i++) {
+                    orderRows[i].remove();
                 }
                 
-                // Show thank you message
-                document.getElementById("cart-section").classList.add("hidden");
-                document.getElementById("thank-you-section").classList.remove("hidden");
-            })
-            .catch((error) => {
-                console.error('Error sending order:', error);
-                alert('حدث خطأ أثناء إرسال الطلب. الرجاء المحاولة مرة أخرى.');
+                const firstCodeInput = document.querySelector('.code-input');
+                const firstQuantityInput = document.querySelector('.quantity-input');
+                if (firstCodeInput) firstCodeInput.value = '';
+                if (firstQuantityInput) firstQuantityInput.value = '';
+                
+                document.getElementById('customer-name').value = '';
+                document.getElementById('shop-name').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('deposit').value = '';
+                document.getElementById('notes').value = '';
+                
+                // Reset global order data
+                globalOrderData = null;
+                
+                // Show order section
+                cartView.style.display = 'none';
+                customerForm.style.display = 'none';
+                successPage.style.display = 'none';
+                orderSection.style.display = 'block';
             });
         });
     </script>
