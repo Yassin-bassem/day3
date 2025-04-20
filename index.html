@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Land</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            padding: 20px;
+            direction: rtl;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 36px;
+        }
+        table, th, td {
+            border: 1px solid #333;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+            width: 50%;
+            margin: 0 auto;
+        }
+        th {
+            background-color: #ff6f91;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #56CCF2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #4fa3d1;
+        }
+        .hidden {
+            display: none;
+        }
+        .cart-summary {
+            margin-top: 20px;
+            text-align: right;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+        #thank-you-section {
+            text-align: center;
+            font-size: 24px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Baby Land</h1>
+
+    <div id="order-section">
+        <h2>إدخال الأوردرات</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>كود</th>
+                    <th>الكمية</th>
+                </tr>
+            </thead>
+            <tbody id="order-body">
+                <tr>
+                    <td><input type="text" name="code[]" required></td>
+                    <td><input type="number" name="qty[]" required></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="addRow()">إضافة المزيد</button>
+        <button type="button" onclick="showCart()">عرض السلة</button>
+    </div>
+
+    <div id="cart-section" class="hidden">
+        <h2>تفاصيل السلة</h2>
+        <div id="cart-summary" class="cart-summary"></div>
+        <h3>الرجاء إدخال بياناتك لإرسال الطلب:</h3>
+        <form id="order-form">
+            <label>الاسم:</label>
+            <input type="text" name="name" required><br><br>
+
+            <label>اسم المحل:</label>
+            <input type="text" name="store-name" required><br><br>
+
+            <label>العنوان:</label>
+            <input type="text" name="address" required><br><br>
+
+            <label>رقم التليفون:</label>
+            <input type="tel" name="phone" required><br><br>
+
+            <label>عربون:</label>
+            <input type="number" name="deposit" required><br><br>
+
+            <label>رقم الواتساب:</label>
+            <input type="tel" name="whatsapp" required><br><br>
+
+            <label>الملاحظات:</label>
+            <textarea name="notes"></textarea><br><br>
+
+            <button type="submit">إرسال الطلب</button>
+        </form>
+    </div>
+
+    <div id="thank-you-section" class="hidden">
+        <h2>شكراً! تم إرسال طلبك بنجاح.</h2>
+    </div>
+
+    <script>
+        // إضافة صف جديد عند الضغط على "إضافة المزيد"
+        function addRow() {
+            const tableBody = document.getElementById('order-body');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="text" name="code[]" required></td>
+                <td><input type="number" name="qty[]" required></td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // عرض تفاصيل السلة عند الضغط على "عرض السلة"
+        function showCart() {
+            const codes = document.getElementsByName('code[]');
+            const qtys = document.getElementsByName('qty[]');
+            let summaryHTML = "<ul>";
+            for (let i = 0; i < codes.length; i++) {
+                if (codes[i].value && qtys[i].value) {
+                    summaryHTML += `<li>${codes[i].value} - ${qtys[i].value}</li>`;
+                }
+            }
+            summaryHTML += "</ul>";
+            document.getElementById("cart-summary").innerHTML = summaryHTML;
+            document.getElementById("order-section").classList.add("hidden");
+            document.getElementById("cart-section").classList.remove("hidden");
+        }
+
+        // Function to format phone number for WhatsApp
+        function formatWhatsAppNumber(phoneNumber) {
+            // Remove any non-digit characters
+            phoneNumber = phoneNumber.replace(/\D/g, '');
+            
+            // If it starts with 0, replace with country code (20 for Egypt)
+            if (phoneNumber.startsWith('0')) {
+                phoneNumber = '20' + phoneNumber.substring(1);
+            }
+            
+            // If it doesn't have a country code, add Egypt's country code
+            if (phoneNumber.length === 10) { // Egyptian numbers without country code
+                phoneNumber = '20' + phoneNumber;
+            }
+            
+            return phoneNumber;
+        }
+
+        // إرسال البيانات إلى Google Script
+        document.getElementById("order-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const codes = document.getElementsByName('code[]');
+            const qtys = document.getElementsByName('qty[]');
+            const formData = new FormData(this);
+            const orderDetails = {
+                name: formData.get("name"),
+                storeName: formData.get("store-name"),
+                address: formData.get("address"),
+                phone: formData.get("phone"),
+                deposit: formData.get("deposit"),
+                whatsapp: formData.get("whatsapp"),
+                notes: formData.get("notes"),
+                items: []
+            };
+
+            // Collect all items with their codes and quantities
+            for (let i = 0; i < codes.length; i++) {
+                if (codes[i].value && qtys[i].value) {
+                    orderDetails.items.push({
+                        code: codes[i].value,
+                        quantity: qtys[i].value
+                    });
+                }
+            }
+
+            // Make sure your Google Script URL is correct and the web app is deployed with proper permissions
+            const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxIMf5mqLExYzBzt2Z_kT1UglinBsWofE6G8Py2nrKZkEgdNpKPsYSlTvO44avtHtWX/exec'; // Replace with your actual URL
+
+            // Convert orderDetails to URL-encoded form data format which works better with Google Apps Script
+            const formDataForGoogleScript = new URLSearchParams();
+            formDataForGoogleScript.append('data', JSON.stringify(orderDetails));
+
+            fetch(googleScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Important for cross-origin requests to Google Script
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formDataForGoogleScript.toString(),
+            })
+            .then(() => {
+                console.log('Order sent to Google Sheets');
+                
+                // Create detailed WhatsApp message with all order information
+                let detailedMessage = `*طلب جديد من Baby Land*\n\n`;
+                detailedMessage += `*معلومات العميل:*\n`;
+                detailedMessage += `الاسم: ${orderDetails.name}\n`;
+                detailedMessage += `اسم المحل: ${orderDetails.storeName}\n`;
+                detailedMessage += `العنوان: ${orderDetails.address}\n`;
+                detailedMessage += `رقم التليفون: ${orderDetails.phone}\n`;
+                detailedMessage += `عربون: ${orderDetails.deposit}\n`;
+                detailedMessage += `رقم الواتساب: ${orderDetails.whatsapp}\n`;
+                
+                if (orderDetails.notes) {
+                    detailedMessage += `ملاحظات: ${orderDetails.notes}\n`;
+                }
+                
+                detailedMessage += `\n*تفاصيل الطلب:*\n`;
+                orderDetails.items.forEach((item, index) => {
+                    detailedMessage += `${index + 1}. كود: ${item.code} - الكمية: ${item.quantity}\n`;
+                });
+                
+                // Format WhatsApp numbers properly
+                const ownerWhatsApp = formatWhatsAppNumber('201033110143'); // Replace with your WhatsApp number
+                const customerWhatsApp = formatWhatsAppNumber(orderDetails.whatsapp);
+                
+                // Send detailed WhatsApp message to owner
+                const ownerWhatsAppUrl = `https://api.whatsapp.com/send?phone=${ownerWhatsApp}&text=${encodeURIComponent(detailedMessage)}`;
+                window.open(ownerWhatsAppUrl, '_blank');
+                
+                // Send confirmation to customer with order details
+                if (customerWhatsApp) {
+                    let customerMessage = `*شكراً لطلبك من Baby Land!*\n\n`;
+                    customerMessage += `*تفاصيل طلبك:*\n`;
+                    orderDetails.items.forEach((item, index) => {
+                        customerMessage += `${index + 1}. كود: ${item.code} - الكمية: ${item.quantity}\n`;
+                    });
+                    customerMessage += `\nتم استلام طلبك وسنتواصل معك قريباً.`;
+                    
+                    const customerWhatsAppUrl = `https://api.whatsapp.com/send?phone=${customerWhatsApp}&text=${encodeURIComponent(customerMessage)}`;
+                    setTimeout(() => {
+                        window.open(customerWhatsAppUrl, '_blank');
+                    }, 1000); // Delay opening the second WhatsApp window
+                }
+                
+                // Show thank you message
+                document.getElementById("cart-section").classList.add("hidden");
+                document.getElementById("thank-you-section").classList.remove("hidden");
+            })
+            .catch((error) => {
+                console.error('Error sending order:', error);
+                alert('حدث خطأ أثناء إرسال الطلب. الرجاء المحاولة مرة أخرى.');
+            });
+        });
+    </script>
+</body>
+</html>
